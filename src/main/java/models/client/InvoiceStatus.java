@@ -1,5 +1,5 @@
 package models.client;
 
 public enum InvoiceStatus {
-    PAYED, UNPAIED
+    PAYED, UNPAID
 }
