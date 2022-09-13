@@ -6,6 +6,6 @@ import lombok.Setter;
 import java.util.UUID;
 
 public class Vehicle {
-    @Getter @Setter private UUID vehicleId;
+    @Getter @Setter private UUID id;
     @Getter @Setter private double vehicleCapacity;
 }

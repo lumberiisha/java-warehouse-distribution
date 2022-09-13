@@ -10,11 +10,11 @@ import java.util.UUID;
 @Setter
 
 public class Client {
-    private User clientUser;
-    private UUID clientId;
-    private String clientName;
-    private String clientPhoneNumber;
-    private Address clientAddress;
-    private String clientEmail;
+    private User user;
+    private UUID id;
+    private String name;
+    private String phoneNumber;
+    private Address address;
+    private String email;
 
 }

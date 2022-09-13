@@ -9,10 +9,10 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Employee {
-    private User employeeUser;
-    private UUID employeeId;
-    private String employeeName;
-    private String employeeEmail;
-    private Address employeeAddress;
-    private Vehicle employeeVehicle;
+    private User user;
+    private UUID id;
+    private String name;
+    private String email;
+    private Address address;
+    private Vehicle vehicle;
 }

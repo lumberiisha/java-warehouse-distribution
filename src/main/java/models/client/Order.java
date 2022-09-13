@@ -10,8 +10,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Order {
-    private UUID orderId;
-    private OrderStatus orderStatus;
+    private UUID id;
+    private OrderStatus status;
     private Date orderDate;
-    private List<Product> orderedProducts;
+    private List<Product> products;
 }

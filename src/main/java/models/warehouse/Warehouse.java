@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Warehouse {
-    private UUID warehouseId;
-    private String warehouseName;
-    private List<Product> warehouseProducts;
-    private List<Employee> warehouseEmployees;
-
+    private UUID id;
+    private String name;
+    private List<Product> products;
+    private List<Employee> employees;
 }

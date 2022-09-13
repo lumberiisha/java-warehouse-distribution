@@ -3,35 +3,33 @@ package models.user;
 import java.util.UUID;
 
 public class User {
-    private UUID userId;
+    private UUID id;
     private String userName;
-    private String userPassword;
-    private Role userRole;
+    private String password;
+    private Role role;
 
-    public UUID getUserId(){
-        return this.userId;
+    public UUID getId() {
+        return id;
     }
-    public void setUserId(UUID userId){
-        this.userId=userId;
+    public void setId(UUID id) {
+        this.id = id;
     }
-    public String getUserName(){
-        return this.userName;
+    public String getUserName() {
+        return userName;
     }
     public void setUserName(String userName){
         this.userName=userName;
     }
-    public String getUserPassword(){
-        return this.userPassword;
+    public String getPassword() {
+        return password;
     }
-    public void setUserPassword(String userPassword){
-        this.userPassword=userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public Role getUserRole() {
-        return this.userRole;
+    public Role getRole() {
+        return role;
     }
-
-    public void setUserRole(Role userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

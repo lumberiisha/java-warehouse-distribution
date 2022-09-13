@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Address {
-    private Region addressRegion;
+    private Region region;
     private String street;
     private String city;
     private int postalCode;

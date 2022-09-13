@@ -8,10 +8,10 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Product {
-    private UUID productId;
-    private String productName;
-    private double productPrice;
+    private UUID id;
+    private String name;
+    private double price;
     private Date expirationDate;
     private Date manufacturingDate;
-    private String productDescription;
+    private String description;
 }

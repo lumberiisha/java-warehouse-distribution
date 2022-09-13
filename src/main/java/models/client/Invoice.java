@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Invoice {
-    private UUID invoiceId;
-    private InvoiceStatus invoiceStatus;
-    private Date invoicePayDate;
-    private List<Order> invoiceOrders;
+    private UUID id;
+    private InvoiceStatus status;
+    private Date payDate;
+    private List<Order> orders;
 }
