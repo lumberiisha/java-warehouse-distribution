@@ -1,17 +1,45 @@
 package models.client;
 
-import lombok.Getter;
-import lombok.Setter;
 import models.warehouse.Product;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-@Getter
-@Setter
 public class Order {
     private UUID id;
     private OrderStatus status;
     private Date orderDate;
     private List<Product> products;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

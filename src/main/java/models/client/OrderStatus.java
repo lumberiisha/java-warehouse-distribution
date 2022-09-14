@@ -1,5 +1,5 @@
 package models.client;
 
 public enum OrderStatus {
-    WAITING_TO_DELIVERY, DELIVERED
+    CREATED,IN_PROGRESS,ASSEMBLED,WAITING_FOR_DELIVERY,DELIVERED
 }
