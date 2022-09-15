@@ -1,4 +1,4 @@
-package models.warehouse;
+package com.frakton.javawarehousedistribution.models.warehouse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

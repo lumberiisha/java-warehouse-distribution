@@ -1,16 +1,17 @@
-package models.employee;
+package com.frakton.javawarehousedistribution.models.client;
 
-import models.location.Address;
-import models.user.User;
+import com.frakton.javawarehousedistribution.models.user.User;
+import com.frakton.javawarehousedistribution.models.location.Address;
 
 import java.util.UUID;
-public class Employee {
+
+public class Client {
     private User user;
     private UUID id;
     private String name;
-    private String email;
+    private String phoneNumber;
     private Address address;
-    private Vehicle vehicle;
+    private String email;
 
     public User getUser() {
         return user;
@@ -36,12 +37,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Address getAddress() {
@@ -52,11 +53,11 @@ public class Employee {
         this.address = address;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public String getEmail() {
+        return email;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

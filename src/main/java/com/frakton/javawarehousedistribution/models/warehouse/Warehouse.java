@@ -1,7 +1,7 @@
-package models.warehouse;
+package com.frakton.javawarehousedistribution.models.warehouse;
 
-import models.employee.Employee;
-import models.location.Address;
+import com.frakton.javawarehousedistribution.models.employee.Employee;
+import com.frakton.javawarehousedistribution.models.location.Address;
 
 import java.util.List;
 import java.util.UUID;

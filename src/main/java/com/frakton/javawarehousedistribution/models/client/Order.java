@@ -1,6 +1,6 @@
-package models.client;
+package com.frakton.javawarehousedistribution.models.client;
 
-import models.warehouse.Product;
+import com.frakton.javawarehousedistribution.models.warehouse.Product;
 
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package models.employee;
+package com.frakton.javawarehousedistribution.models.employee;
 
 import java.util.UUID;
 

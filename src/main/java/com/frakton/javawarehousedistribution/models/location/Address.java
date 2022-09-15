@@ -1,4 +1,4 @@
-package models.location;
+package com.frakton.javawarehousedistribution.models.location;
 public class Address {
     private Region region;
     private String street;

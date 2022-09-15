@@ -1,4 +1,4 @@
-package models.client;
+package com.frakton.javawarehousedistribution.models.client;
 
 import java.util.Date;
 import java.util.List;
