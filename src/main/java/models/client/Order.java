@@ -11,6 +11,13 @@ public class Order {
     private Date orderDate;
     private List<Product> products;
 
+    public Order(UUID id, OrderStatus status, Date orderDate, List<Product> products) {
+        this.id = id;
+        this.status = status;
+        this.orderDate = orderDate;
+        this.products = products;
+    }
+
     public UUID getId() {
         return id;
     }

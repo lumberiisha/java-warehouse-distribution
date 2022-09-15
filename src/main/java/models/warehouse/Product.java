@@ -1,6 +1,9 @@
 package models.warehouse;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 public class Product {
     private UUID id;
@@ -9,6 +12,19 @@ public class Product {
     private Date expirationDate;
     private Date manufacturingDate;
     private String description;
+
+    public Product(@JsonProperty("id") UUID id,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("price") double price,
+                   Date expirationDate, Date manufacturingDate,
+                   @JsonProperty("description") String description) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.price = price;
+        this.expirationDate = new Date();
+        this.manufacturingDate = new Date();
+        this.description = description;
+    }
 
     public UUID getId() {
         return id;
