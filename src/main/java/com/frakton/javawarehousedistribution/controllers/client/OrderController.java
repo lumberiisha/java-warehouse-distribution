@@ -1,29 +1,26 @@
 package com.frakton.javawarehousedistribution.controllers.client;
 
+import com.frakton.javawarehousedistribution.models.client.Order;
 import com.frakton.javawarehousedistribution.models.warehouse.Product;
+import com.frakton.javawarehousedistribution.services.clientservice.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/client/order")
+//@RequestMapping("/api/client/order")
 public class OrderController {
-    public static List<Product> productsDB = new ArrayList<>();
+    @Autowired
+   public  OrderService orderService;
 
-    @PostMapping("/")
-    public void addProduct(@RequestBody Product product) {
-        productsDB.add(new Product(
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getExpirationDate(),
-                product.getManufacturingDate(),
-                product.getDescription()));
-    }
-
-    @GetMapping("/")
-    public List<Product> getProduct() {
-        return productsDB;
-    }
+   @PostMapping("/api/order")
+   public void addOrder(@RequestBody Order order){
+       orderService.addOrder(order);
+   }
+   @GetMapping("/api/order")
+   public List<Order> getOrders(){
+       return orderService.getOrders();
+   }
 }

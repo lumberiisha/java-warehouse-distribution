@@ -8,7 +8,18 @@ public class Invoice {
     private UUID id;
     private InvoiceStatus status;
     private Date payDate;
+    private double totalPrice;
     private List<Order> orders;
+
+    public Invoice(InvoiceStatus status,
+                   double totalPrice,
+                   List<Order> orders) {
+        this.id = UUID.randomUUID();
+        this.status = status;
+        this.payDate = new Date();
+        this.totalPrice = totalPrice;
+        this.orders = orders;
+    }
 
     public UUID getId() {
         return id;
@@ -40,5 +51,13 @@ public class Invoice {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }

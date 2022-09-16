@@ -13,10 +13,8 @@ public class Product {
     private Date manufacturingDate;
     private String description;
 
-    public Product(@JsonProperty("id") UUID id,
-                   @JsonProperty("name") String name,
+    public Product(@JsonProperty("name") String name,
                    @JsonProperty("price") double price,
-                   Date expirationDate, Date manufacturingDate,
                    @JsonProperty("description") String description) {
         this.id = UUID.randomUUID();
         this.name = name;

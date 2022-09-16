@@ -1,5 +1,6 @@
 package com.frakton.javawarehousedistribution.models.client;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.frakton.javawarehousedistribution.models.warehouse.Product;
 
 import java.util.Date;
@@ -11,10 +12,11 @@ public class Order {
     private Date orderDate;
     private List<Product> products;
 
-    public Order(UUID id, OrderStatus status, Date orderDate, List<Product> products) {
-        this.id = id;
+    public Order(@JsonProperty("status") OrderStatus status,
+                 List<Product> products) {
+        this.id = UUID.randomUUID();
         this.status = status;
-        this.orderDate = orderDate;
+        this.orderDate = new Date();
         this.products = products;
     }
 
