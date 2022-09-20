@@ -10,14 +10,17 @@ public class Order {
     private UUID id;
     private OrderStatus status;
     private Date orderDate;
-    private List<Product> products;
+    private List<OrderItem> orderItems;
 
-    public Order(@JsonProperty("status") OrderStatus status,
-                 List<Product> products) {
+    public Order() {
         this.id = UUID.randomUUID();
-        this.status = status;
+//        this.status = status;
         this.orderDate = new Date();
-        this.products = products;
+//        this.products = products;
+    }
+    public Order(List<OrderItem> orderItems){
+        this();
+        this.orderItems=orderItems;
     }
 
     public UUID getId() {
@@ -44,11 +47,19 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
+
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 }

@@ -8,20 +8,13 @@ import java.util.UUID;
 public class Product {
     private UUID id;
     private String name;
-    private double price;
+    private Double price;
     private Date expirationDate;
     private Date manufacturingDate;
     private String description;
 
-    public Product(@JsonProperty("name") String name,
-                   @JsonProperty("price") double price,
-                   @JsonProperty("description") String description) {
-        this.id = UUID.randomUUID();
-        this.name = name;
-        this.price = price;
-        this.expirationDate = new Date();
-        this.manufacturingDate = new Date();
-        this.description = description;
+    public Product(){
+        id=UUID.randomUUID();
     }
 
     public UUID getId() {
@@ -40,11 +33,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

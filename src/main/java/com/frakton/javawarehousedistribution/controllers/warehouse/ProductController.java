@@ -16,7 +16,7 @@ public class ProductController {
     @Autowired
     public ProductService productService;
 
-    @PostMapping("/api/product1")
+    @PostMapping("/api/product")
     public void addProduct(@RequestBody Product product){
         productService.addProduct(product);
     }
@@ -26,13 +26,13 @@ public class ProductController {
        return productService.getProducts();
     }
 
-    @PostMapping("/api/product/order")
-    public void addProductInOrder(@RequestBody Product product){
-        productService.addProductInOrder(product);
-    }
+//    @PostMapping("/api/product/order")
+//    public void addProductInOrder(@RequestBody Product product){
+//        productService.addProductInOrder(product);
+//    }
 
-    @GetMapping("/api/product/order")
-    public List<Product> getOrderedProducts(){
-        return productService.getOrderedProducts();
-    }
+//    @GetMapping("/api/product/order")
+//    public List<Product> getOrderedProducts(){
+//        return productService.getOrderedProducts();
+//    }
 }
