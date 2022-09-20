@@ -12,17 +12,6 @@ public class Order {
     private Date orderDate;
     private List<OrderItem> orderItems;
 
-    public Order() {
-        this.id = UUID.randomUUID();
-//        this.status = status;
-        this.orderDate = new Date();
-//        this.products = products;
-    }
-    public Order(List<OrderItem> orderItems){
-        this();
-        this.orderItems=orderItems;
-    }
-
     public UUID getId() {
         return id;
     }

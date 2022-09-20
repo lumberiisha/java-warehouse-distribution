@@ -22,8 +22,9 @@ public class OrderController {
 //       orderService.addOrder();
 //   }
     @PostMapping("/api/order")
-    public void createOrder(@RequestBody OrderRequestDto orderRequest) {
-        orderService.createOrder(orderRequest);
+    public Order createOrder(@RequestBody OrderRequestDto orderRequest) {
+        //TODO change Order to OrderDTO
+        return orderService.createOrder(orderRequest);
     }
 
     @GetMapping("/api/order")
