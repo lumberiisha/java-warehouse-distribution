@@ -11,10 +11,6 @@ public class Invoice {
     private Double totalPrice;
     private List<Order> orders;
 
-    public Invoice() {
-        this.id = UUID.randomUUID();
-        this.payDate = new Date();
-    }
 
     public UUID getId() {
         return id;

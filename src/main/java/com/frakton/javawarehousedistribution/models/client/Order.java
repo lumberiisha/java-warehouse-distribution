@@ -1,8 +1,5 @@
 package com.frakton.javawarehousedistribution.models.client;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.frakton.javawarehousedistribution.models.warehouse.Product;
-
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

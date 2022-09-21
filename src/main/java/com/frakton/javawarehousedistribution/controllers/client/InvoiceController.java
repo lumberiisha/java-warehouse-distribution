@@ -13,9 +13,9 @@ public class InvoiceController {
 
     @Autowired
     public InvoiceService invoiceService;
-    @PostMapping("/api/invoice1")
-    public void creatInvoice(@RequestBody Invoice invoice){
-        invoiceService.creatInvoice(invoice);
+    @PostMapping("/api/invoice")
+    public void creatInvoice(){
+        invoiceService.creatInvoice();
     }
     @GetMapping("/api/invoice")
     public List<Invoice> getInvoice(){

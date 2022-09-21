@@ -1,15 +1,13 @@
 package com.frakton.javawarehousedistribution.controllers.warehouse;
 
+import com.frakton.javawarehousedistribution.controllers.dto.product.ProductDto;
 import com.frakton.javawarehousedistribution.models.warehouse.Product;
-import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
 import com.frakton.javawarehousedistribution.services.warehouseservice.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ProductController {
@@ -25,14 +23,13 @@ public class ProductController {
     public List<Product> getProduct(){
        return productService.getProducts();
     }
+    @DeleteMapping("/api/product")
+    public Product delete(@RequestBody UUID id){
+       return productService.delete(id);
+    }
+    @PatchMapping("/api/product")
+    public Product update(@RequestBody ProductDto productDto){
+        return productService.update(productDto);
+    }
 
-//    @PostMapping("/api/product/order")
-//    public void addProductInOrder(@RequestBody Product product){
-//        productService.addProductInOrder(product);
-//    }
-
-//    @GetMapping("/api/product/order")
-//    public List<Product> getOrderedProducts(){
-//        return productService.getOrderedProducts();
-//    }
 }

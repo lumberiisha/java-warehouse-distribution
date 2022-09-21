@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,11 +20,9 @@ public class OrderService {
     public  List<Order> ordersDB=new ArrayList<>();
     @Autowired
     private final ProductService productService;
-    public final OrderItemService orderItemService;
 
-    public OrderService(ProductService productService, OrderItemService orderItemService) {
+    public OrderService(ProductService productService) {
         this.productService = productService;
-        this.orderItemService = orderItemService;
     }
 
 
@@ -34,27 +33,26 @@ public class OrderService {
 
     public Order createOrder(OrderRequestDto orderRequest) {
         Order order=new Order();
-        List<UUID> uuidList= orderRequest.getOrderItems().stream().map(OrderItemDto::getProductId).collect(Collectors.toList());
+        order.setId(UUID.randomUUID());
+        List<UUID> uuidList= orderRequest.getOrderItems().
+                stream().
+                map(OrderItemDto::getProductId).
+                collect(Collectors.toList());
         List<OrderItem> orderItems = new ArrayList<>();
         List<Product> products = productService.getProductsByIds(uuidList);
         for (OrderItemDto orderItemDto: orderRequest.getOrderItems()){
-            //TODO getProduct from products based on productId of orderItemDto
-            //TODO create orderitem
-            //TODO add orderitem to the list
+            Optional<Product> productOptional=products.
+                    stream().
+                    filter(product -> product.getId().equals(orderItemDto.getProductId())).
+                    findFirst();
+            OrderItem orderItem=new OrderItem();
+            orderItem.setId(UUID.randomUUID());
+            Product product=productOptional.get();
+            orderItem.setProduct(product);
+            orderItem.setQuantity(orderItemDto.getQuantity());
+            orderItems.add(orderItem);
         }
         //TODO (later) save OrderItems to the repo
-        order.setOrderItems(orderItems);
-//        OrderItem orderItem=new OrderItem();
-////        List<OrderItem> orderItems=new ArrayList<>();
-//        for (Product product :products) {
-//            for (OrderItemDto orderItemDto :orderRequest.getOrderItems()) {
-//                if(product.getId().equals(orderItemDto.getProductId())){
-//                    orderItem.setQuantity(orderItemDto.getQuantity());
-//                    orderItem.setProduct(product);
-//                    orderItems.add(orderItem);
-//                }
-//            }
-//        }
         order.setOrderItems(orderItems);
         ordersDB.add(order);
         return order;
