@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  warehousedb:
+    image: postgres:13
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - ./postgres/init/:/docker-entrypoint-initdb.d/
+    environment:
+      POSTGRES_DB: warehousedb
+      POSTGRES_MULTIPLE_DATABASES: warehousedb_test
+      POSTGRES_USER: warehouse
+      POSTGRES_PASSWORD: warehouse
+      PGDATA: /var/lib/postgresql/data/warehouse
+    networks:
+      - backend
+
+networks:
+  backend:
+volumes:
+  my-db:
