@@ -1,12 +1,17 @@
 package com.frakton.javawarehousedistribution.models.client;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+@Entity
+@Table(name = "orders")
 public class Order {
+    @Id
     private UUID id;
     private OrderStatus status;
     private Date orderDate;
+    @OneToMany
     private List<OrderItem> orderItems;
 
     public UUID getId() {
@@ -41,11 +46,4 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
 }

@@ -1,15 +1,20 @@
 package com.frakton.javawarehousedistribution.models.client;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-
+@Entity
 public class Invoice {
+    @Id
     private UUID id;
     private InvoiceStatus status;
     private Date payDate;
     private Double totalPrice;
-    private List<Order> orders;
+    @OneToOne
+    private Order order;
 
 
     public UUID getId() {
@@ -36,12 +41,12 @@ public class Invoice {
         this.payDate = payDate;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrders() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public void setTotalPrice(Double totalPrice) {

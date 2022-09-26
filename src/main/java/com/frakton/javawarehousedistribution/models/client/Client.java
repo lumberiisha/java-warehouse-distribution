@@ -3,13 +3,18 @@ package com.frakton.javawarehousedistribution.models.client;
 import com.frakton.javawarehousedistribution.models.user.User;
 import com.frakton.javawarehousedistribution.models.location.Address;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
 public class Client {
+    @OneToOne
     private User user;
+    @Id
     private UUID id;
     private String name;
     private String phoneNumber;
+    @OneToOne
     private Address address;
     private String email;
 

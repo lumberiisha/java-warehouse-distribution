@@ -3,13 +3,19 @@ package com.frakton.javawarehousedistribution.models.employee;
 import com.frakton.javawarehousedistribution.models.location.Address;
 import com.frakton.javawarehousedistribution.models.user.User;
 
+import javax.persistence.*;
 import java.util.UUID;
+@Entity
 public class Employee {
+    @OneToOne
     private User user;
+    @Id
     private UUID id;
     private String name;
     private String email;
+    @OneToOne
     private Address address;
+    @OneToOne
     private Vehicle vehicle;
 
     public User getUser() {

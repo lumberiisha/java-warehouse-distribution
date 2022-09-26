@@ -22,8 +22,8 @@ public class InvoiceService {
     public void creatInvoice(){
         Invoice invoice=new Invoice();
         invoice.setId(UUID.randomUUID());
-        invoice.setOrders(orderService.getOrders());
-        invoice.setTotalPrice(getTotalPrice(invoice.getOrders()));
+        invoice.setOrder(orderService.getOrders());
+       // invoice.setTotalPrice(getTotalPrice(invoice.getOrders()));
         invoicesDB.add(invoice);
     }
     public List<Invoice> getInvoices(){

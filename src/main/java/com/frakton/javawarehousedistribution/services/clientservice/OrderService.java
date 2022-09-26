@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
-    public  List<Order> ordersDB=new ArrayList<>();
+    public  Order ordersDB;
     @Autowired
     private final ProductService productService;
 
@@ -26,7 +26,7 @@ public class OrderService {
     }
 
 
-    public List<Order> getOrders(){
+    public Order getOrders(){
         return ordersDB;
     }
 
@@ -54,7 +54,7 @@ public class OrderService {
         }
         //TODO (later) save OrderItems to the repo
         order.setOrderItems(orderItems);
-        ordersDB.add(order);
+        ordersDB=order;
         return order;
     }
 }
