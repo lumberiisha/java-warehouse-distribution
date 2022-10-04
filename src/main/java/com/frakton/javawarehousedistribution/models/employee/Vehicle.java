@@ -2,14 +2,26 @@ package com.frakton.javawarehousedistribution.models.employee;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.UUID;
 @Entity
 public class Vehicle {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String plateNumber;
-    private int personCapacity;
+    private Integer personCapacity;
+
+    private VehicleType vehicleType;
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
 
     public UUID getId() {
         return id;
@@ -27,11 +39,11 @@ public class Vehicle {
         this.plateNumber = plateNumber;
     }
 
-    public int getPersonCapacity() {
+    public Integer getPersonCapacity() {
         return personCapacity;
     }
 
-    public void setPersonCapacity(int personCapacity) {
+    public void setPersonCapacity(Integer personCapacity) {
         this.personCapacity = personCapacity;
     }
 }

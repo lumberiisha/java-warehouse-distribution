@@ -8,6 +8,7 @@ import java.util.UUID;
 @Table(name = "orders")
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private OrderStatus status;
     private Date orderDate;

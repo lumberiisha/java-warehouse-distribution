@@ -1,28 +1,36 @@
 package com.frakton.javawarehousedistribution.controllers.user;
 
+import com.frakton.javawarehousedistribution.controllers.dto.user.UserRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDto;
 import com.frakton.javawarehousedistribution.models.user.User;
 import com.frakton.javawarehousedistribution.services.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 public class UserController {
+
     @Autowired
     public UserService userService;
 
-    @PostMapping("/api/user")
-    public Optional<User> addUser(@RequestBody User user){
-        return userService.addUser(user);
+    @GetMapping("/api/user")
+    public ResponseEntity<List<UserResponseDto>> getUser(){
+        return userService.getUser();
     }
-
-    @DeleteMapping("/api/user")
-    public Optional<User> deleteUser(@RequestBody UUID id){
+    @GetMapping("/api/user/{id}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable UUID id){
+        return userService.getUserById(id);
+    }
+    @PostMapping("/api/user")
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto){
+        return userService.createUser(userRequestDto);
+    }
+    @DeleteMapping("/api/user/{id}")
+    public ResponseEntity<UserResponseDto> deleteUser(@PathVariable UUID id){
         return userService.deleteUser(id);
     }
 }

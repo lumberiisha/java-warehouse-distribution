@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 013_create_table_invoice
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: invoice
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: status
+                  type: Integer
+              - column:
+                  name: pay_date
+                  type: timestamp
+              - column:
+                  name: total_price
+                  type: Double
+              - column:
+                  name: order_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: order_id
+                    referencedTableName: orders
+                    referencedColumnNames: id

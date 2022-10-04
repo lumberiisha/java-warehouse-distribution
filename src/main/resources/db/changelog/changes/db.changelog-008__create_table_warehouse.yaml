@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet: 
+      id: 008_create_table_warehouse
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: warehouse
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: address_id
+                    referencedTableName: address
+                    referencedColumnNames: id
+

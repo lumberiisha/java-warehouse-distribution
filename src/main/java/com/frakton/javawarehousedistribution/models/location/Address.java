@@ -6,11 +6,12 @@ import java.util.UUID;
 @Entity
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private Region region;
     private String street;
     private String city;
-    private int postalCode;
+    private Integer postalCode;
 
     public Region getRegion() {
         return region;
@@ -36,11 +37,11 @@ public class Address {
         this.city = city;
     }
 
-    public int getPostalCode() {
+    public Integer getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(Integer postalCode) {
         this.postalCode = postalCode;
     }
 

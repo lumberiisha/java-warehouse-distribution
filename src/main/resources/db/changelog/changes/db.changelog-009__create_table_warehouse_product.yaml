@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009_create_table_warehouse_product
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: warehouse_products
+            columns:
+              - column:
+                  name: warehouse_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: warehouse_id
+                    referencedTableName: warehouse
+                    referencedColumnNames: id
+              - column:
+                  name: products_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: products_id
+                    referencedTableName: product
+                    referencedColumnNames: id

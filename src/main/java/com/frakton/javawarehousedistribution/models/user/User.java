@@ -7,6 +7,7 @@ import java.util.UUID;
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String userName;
     private String password;

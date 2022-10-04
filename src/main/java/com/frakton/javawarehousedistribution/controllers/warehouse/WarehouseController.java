@@ -1,23 +1,24 @@
 package com.frakton.javawarehousedistribution.controllers.warehouse;
 
+import com.frakton.javawarehousedistribution.models.location.Address;
 import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
 import com.frakton.javawarehousedistribution.services.warehouseservice.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
-
+@RestController
 public class WarehouseController {
 
-    @Autowired
-    public WarehouseService warehouseService;
 
-    @PostMapping
-    public Warehouse addWarehouse(@RequestBody Warehouse warehouse){
-       //return warehouseService.addWarehouse(warehouse);
-        return null;
+    @Autowired
+    public  WarehouseService warehouseService;
+
+
+    @PostMapping("/api/warehouse")
+    public Optional<Warehouse> addWarehouse(@RequestBody Warehouse warehouse){
+       return warehouseService.addWarehouse(warehouse);
     }
 
     @GetMapping
@@ -25,4 +26,5 @@ public class WarehouseController {
        // return warehouseService.findWarehouseById(id);
         return null;
     }
+
 }

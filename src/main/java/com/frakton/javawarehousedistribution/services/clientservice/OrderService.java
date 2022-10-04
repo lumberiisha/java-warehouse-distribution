@@ -1,15 +1,16 @@
 package com.frakton.javawarehousedistribution.services.clientservice;
 
-import com.frakton.javawarehousedistribution.controllers.dto.OrderRequestDto;
-import com.frakton.javawarehousedistribution.controllers.dto.order.OrderItemDto;
+import com.frakton.javawarehousedistribution.controllers.dto.order.OrderRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.order.OrderResponseDto;
 import com.frakton.javawarehousedistribution.models.client.Order;
 import com.frakton.javawarehousedistribution.models.client.OrderItem;
-import com.frakton.javawarehousedistribution.models.warehouse.Product;
-import com.frakton.javawarehousedistribution.services.warehouseservice.ProductService;
+import com.frakton.javawarehousedistribution.repository.client.OrderRepository;
+import org.aspectj.weaver.ast.Or;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,44 +18,54 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
-    public  Order ordersDB;
     @Autowired
-    private final ProductService productService;
-
-    public OrderService(ProductService productService) {
-        this.productService = productService;
-    }
-
-
-    public Order getOrders(){
-        return ordersDB;
-    }
-
-
-    public Order createOrder(OrderRequestDto orderRequest) {
-        Order order=new Order();
-        order.setId(UUID.randomUUID());
-        List<UUID> uuidList= orderRequest.getOrderItems().
+    public OrderRepository orderRepository;
+    @Autowired
+    public OrderItemService orderItemService;
+    public ModelMapper modelMapper=new ModelMapper();
+    public ResponseEntity<List<OrderResponseDto>> getOrders() {
+        List<Order> orderList=orderRepository.findAll();
+        List<OrderResponseDto> orderResponseDtoList=orderList.
                 stream().
-                map(OrderItemDto::getProductId).
+                map(order -> modelMapper.map(order, OrderResponseDto.class)).
                 collect(Collectors.toList());
-        List<OrderItem> orderItems = new ArrayList<>();
-        List<Product> products = productService.getProductsByIds(uuidList);
-        for (OrderItemDto orderItemDto: orderRequest.getOrderItems()){
-            Optional<Product> productOptional=products.
-                    stream().
-                    filter(product -> product.getId().equals(orderItemDto.getProductId())).
-                    findFirst();
-            OrderItem orderItem=new OrderItem();
-            orderItem.setId(UUID.randomUUID());
-            Product product=productOptional.get();
-            orderItem.setProduct(product);
-            orderItem.setQuantity(orderItemDto.getQuantity());
-            orderItems.add(orderItem);
+        return ResponseEntity.ok(orderResponseDtoList);
+    }
+
+    public ResponseEntity<OrderResponseDto> getOrderById(UUID id) {
+        Optional<Order> orderOptional=orderRepository.findById(id);
+        if(orderOptional.isPresent()){
+            Order order=orderOptional.get();
+            return ResponseEntity.ok(modelMapper.map(order,OrderResponseDto.class));
+        }else {
+            return ResponseEntity.notFound().build();
         }
-        //TODO (later) save OrderItems to the repo
-        order.setOrderItems(orderItems);
-        ordersDB=order;
-        return order;
+    }
+
+    public ResponseEntity<OrderResponseDto> createOrder(OrderRequestDto orderRequestDto) {
+        List<OrderItem> orderItemList=orderRequestDto.getOrderItemsId().
+                stream().
+                map(uuid -> modelMapper.map(orderItemService.getOrderItemById(uuid).getBody(), OrderItem.class)).
+                collect(Collectors.toList());
+        Order order= modelMapper.map(orderRequestDto,Order.class);
+        order.setOrderItems(orderItemList);
+        orderRepository.save(order);
+        return ResponseEntity.ok(modelMapper.map(order,OrderResponseDto.class));
+    }
+
+    public ResponseEntity<OrderResponseDto> deleteOrder(UUID id) {
+        Order order= modelMapper.map(getOrderEntityById(id).getBody(),Order.class);
+        orderRepository.delete(order);
+        OrderResponseDto orderResponseDto=modelMapper.map(order,OrderResponseDto.class);
+        return ResponseEntity.ok(orderResponseDto);
+    }
+    public ResponseEntity<Order> getOrderEntityById(UUID id){
+        Optional<Order> optionalOrder=orderRepository.findById(id);
+        if(optionalOrder.isPresent()){
+            Order order=optionalOrder.get();
+            return ResponseEntity.ok(order);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

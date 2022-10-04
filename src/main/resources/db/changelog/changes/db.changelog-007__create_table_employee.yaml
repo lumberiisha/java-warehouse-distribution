@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007_create_table_employee
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: address_id
+                    referencedTableName: address
+                    referencedColumnNames: id
+              - column:
+                  name: vehicle_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: vehicle_id
+                    referencedTableName: vehicle
+                    referencedColumnNames: id
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: user_id
+                    referencedTableName: users
+                    referencedColumnNames: id
