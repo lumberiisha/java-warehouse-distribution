@@ -11,29 +11,30 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/orderItem")
 public class OrderItemController {
     @Autowired
     private  OrderItemService orderItemService;
-    @GetMapping("/api/orderItem/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<OrderItemResponseDto> getOderItemById(@PathVariable UUID id){
        return orderItemService.getOrderItemById(id);
     }
-    @GetMapping("/api/orderItem")
+    @GetMapping()
     public ResponseEntity<List<OrderItemResponseDto>> getOrderItems(){
         return orderItemService.getOrderItems();
     }
 
-    @PostMapping("/api/orderItem")
+    @PostMapping()
     public ResponseEntity<OrderItemResponseDto> createOrderItem(@RequestBody OrderItemRequestDto orderItemRequestDto){
         return orderItemService.createOrderItem(orderItemRequestDto);
     }
 
-    @DeleteMapping("/api/orderItem/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<OrderItemResponseDto> deleteOrderItem(@PathVariable UUID id){
         return orderItemService.deleteOrderItem(id);
     }
 
-    @PutMapping("/api/orderItem/{id}/{quantity}")
+    @PutMapping("/{id}/{quantity}")
     public ResponseEntity<OrderItemResponseDto> updateOrderItem(@PathVariable UUID id, @PathVariable Integer quantity){
         return orderItemService.updateOrderItem(id,quantity);
     }

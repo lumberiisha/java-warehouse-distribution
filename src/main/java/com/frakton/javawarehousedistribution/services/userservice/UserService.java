@@ -5,20 +5,24 @@ import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDt
 import com.frakton.javawarehousedistribution.models.user.User;
 import com.frakton.javawarehousedistribution.repository.user.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    @Autowired
-    public  UserRepository userRepository;
+
+    public final UserRepository userRepository;
+    public final PasswordEncoder passwordEncoder;
     ModelMapper modelMapper=new ModelMapper();
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public ResponseEntity<List<UserResponseDto>> getUser() {
         return ResponseEntity.ok(userRepository.findAll().
@@ -38,6 +42,7 @@ public class UserService {
 
     public ResponseEntity<UserResponseDto> createUser(UserRequestDto userRequestDto) {
         User user=modelMapper.map(userRequestDto,User.class);
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         userRepository.save(user);
         return ResponseEntity.ok(modelMapper.map(user, UserResponseDto.class));
     }
@@ -51,6 +56,8 @@ public class UserService {
         }
         return ResponseEntity.notFound().build();
     }
+
+
 
 //    public User changePassword(UserDto userDto){
 //

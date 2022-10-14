@@ -29,6 +29,17 @@ public class UserController {
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto){
         return userService.createUser(userRequestDto);
     }
+
+    //TODO
+//    @PostMapping("api/user/create_user_client")
+//    public ResponseEntity<UserResponseDto>createClientUser(@RequestBody UserClientRequestDto userClientRequestDto){
+//        return null;
+//    }
+//    @PostMapping("/api/user/create_user_office_worker")
+//    public ResponseEntity<UserResponseDto>createOfficeWorkerUser(@RequestBody UserOfficeWorkerRequestDto userOfficeWorkerRequestDto){
+//
+//    }
+
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<UserResponseDto> deleteUser(@PathVariable UUID id){
         return userService.deleteUser(id);
