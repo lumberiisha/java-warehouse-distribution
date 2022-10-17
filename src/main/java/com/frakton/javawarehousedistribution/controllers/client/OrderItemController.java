@@ -17,6 +17,7 @@ public class OrderItemController {
     private  OrderItemService orderItemService;
     @GetMapping("/{id}")
     public ResponseEntity<OrderItemResponseDto> getOderItemById(@PathVariable UUID id){
+        System.out.println("test");
        return orderItemService.getOrderItemById(id);
     }
     @GetMapping()

@@ -1,11 +1,12 @@
 package com.frakton.javawarehousedistribution.controllers.auth;
 
 import com.frakton.javawarehousedistribution.controllers.dto.auth.LoginRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.auth.token.TokenDto;
 import com.frakton.javawarehousedistribution.services.authservice.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class AuthController {
@@ -17,8 +18,12 @@ public class AuthController {
     }
 
 
-    @PostMapping("/api/test")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto){
+    @PostMapping("/api/login")
+    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto requestDto) throws Exception {
         return authService.login(requestDto);
+    }
+    @GetMapping("/api/refreshToken")
+    public ResponseEntity<TokenDto> refreshToken(HttpServletRequest request){
+        return authService.refreshToken(request);
     }
 }

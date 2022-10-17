@@ -12,7 +12,6 @@ public class JavaWarehouseDistributionApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JavaWarehouseDistributionApplication.class, args);
+
     }
-
-
 }

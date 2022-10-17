@@ -1,18 +1,18 @@
 package com.frakton.javawarehousedistribution.config;
 
+import com.frakton.javawarehousedistribution.config.configservice.MyUserDetails;
+import com.frakton.javawarehousedistribution.config.configservice.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MyAuthenticationProvider implements AuthenticationProvider {
     @Autowired
-    private UserDetailsService userDetailsService;
+    private MyUserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -21,7 +21,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username=authentication.getName();
         String password=authentication.getCredentials().toString();
-        UserDetails user= userDetailsService.loadUserByUsername(username);
+        MyUserDetails user= userDetailsService.loadUserByUsername(username);
 
         if(passwordEncoder.matches(password,user.getPassword())){
             return new UsernamePasswordAuthenticationToken(username,password,user.getAuthorities());
