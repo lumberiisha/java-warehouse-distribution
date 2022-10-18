@@ -44,6 +44,11 @@ public class AddressService {
         addressRepository.save(address);
         return ResponseEntity.ok(modelMapper.map(address,AddressResponseDto.class));
     }
+    public Address createAddressAddress(AddressRequestDto addressRequestDto) {
+        Address address= modelMapper.map(addressRequestDto,Address.class);
+        addressRepository.save(address);
+        return address;
+    }
 
     public ResponseEntity<AddressResponseDto> deleteAddress(UUID id) {
         Optional<Address> optionalAddress=addressRepository.findById(id);

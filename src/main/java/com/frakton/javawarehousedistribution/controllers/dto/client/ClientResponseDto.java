@@ -1,22 +1,19 @@
-package com.frakton.javawarehousedistribution.models.client;
+package com.frakton.javawarehousedistribution.controllers.dto.client;
 
-import com.frakton.javawarehousedistribution.models.user.User;
+import com.frakton.javawarehousedistribution.controllers.dto.location.AddressRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.location.AddressResponseDto;
 import com.frakton.javawarehousedistribution.models.location.Address;
+import com.frakton.javawarehousedistribution.models.user.User;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-public class Client {
-    @OneToOne
+public class ClientResponseDto {
+
     private User user;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String phoneNumber;
-    @OneToOne
-    private Address address;
+    private AddressResponseDto address;
     private String email;
 
     public User getUser() {
@@ -51,11 +48,11 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public Address getAddress() {
+    public AddressResponseDto getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressResponseDto address) {
         this.address = address;
     }
 

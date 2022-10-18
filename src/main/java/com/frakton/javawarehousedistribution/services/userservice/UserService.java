@@ -46,6 +46,12 @@ public class UserService {
         userRepository.save(user);
         return ResponseEntity.ok(modelMapper.map(user, UserResponseDto.class));
     }
+    public User createUserUser(UserRequestDto userRequestDto) {
+        User user=modelMapper.map(userRequestDto,User.class);
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        userRepository.save(user);
+        return user;
+    }
 
     public ResponseEntity<UserResponseDto> deleteUser(UUID id) {
         Optional<User> optionalUser =userRepository.findById(id);
