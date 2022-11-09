@@ -1,26 +1,24 @@
 package com.frakton.javawarehousedistribution.controllers.dto.client;
 
-import com.frakton.javawarehousedistribution.controllers.dto.location.AddressRequestDto;
 import com.frakton.javawarehousedistribution.controllers.dto.location.AddressResponseDto;
-import com.frakton.javawarehousedistribution.models.location.Address;
+import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDto;
 import com.frakton.javawarehousedistribution.models.user.User;
 
 import java.util.UUID;
 
 public class ClientResponseDto {
-
-    private User user;
+    private UserResponseDto user;
     private UUID id;
     private String name;
     private String phoneNumber;
     private AddressResponseDto address;
     private String email;
 
-    public User getUser() {
+    public UserResponseDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserResponseDto user) {
         this.user = user;
     }
 

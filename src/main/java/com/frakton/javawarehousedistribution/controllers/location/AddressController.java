@@ -1,43 +1,42 @@
 package com.frakton.javawarehousedistribution.controllers.location;
 
 import com.frakton.javawarehousedistribution.controllers.dto.location.AddressRequestDto;
-import com.frakton.javawarehousedistribution.controllers.dto.location.AddressResponseDto;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
 import com.frakton.javawarehousedistribution.services.locationservice.AddressService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/address")
 public class AddressController {
-    public final AddressService addressService;
-
+    private final AddressService addressService;
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 
-    @GetMapping("/api/address")
-    public ResponseEntity<List<AddressResponseDto>> getAddress(){
-        return addressService.getAddress();
-    }
-
-    @GetMapping("/api/address/{id}")
-    public ResponseEntity<AddressResponseDto> getAddressById(@PathVariable UUID id){
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('CLIENT')")
+    public ResponseEntity<BaseResponse> getAddressById(@PathVariable UUID id){
         return addressService.getAddressById(id);
     }
 
-    @PostMapping("/api/address")
-    public ResponseEntity<AddressResponseDto> createAddress(@RequestBody AddressRequestDto addressRequestDto){
+    @PostMapping()
+    @PreAuthorize("hasAnyAuthority('CLIENT','OFFICE_WORKER','ADMIN')")
+    public ResponseEntity<BaseResponse> createAddress(@RequestBody AddressRequestDto addressRequestDto){
         return addressService.createAddress(addressRequestDto);
     }
-    @DeleteMapping("/api/address/{id}")
-    public ResponseEntity<AddressResponseDto> deleteAddress(@PathVariable UUID id){
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<BaseResponse> deleteAddress(@PathVariable UUID id){
         return addressService.deleteAddress(id);
     }
 
-    @PutMapping("/api/address/{id}")
-    public ResponseEntity<AddressResponseDto> updateAddress(@PathVariable UUID id, @RequestBody AddressRequestDto addressRequestDto){
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<BaseResponse> updateAddress(@PathVariable UUID id,@RequestBody AddressRequestDto addressRequestDto){
         return addressService.updateAddress(id, addressRequestDto);
     }
 }

@@ -2,9 +2,13 @@ package com.frakton.javawarehousedistribution.services.userservice;
 
 import com.frakton.javawarehousedistribution.controllers.dto.user.UserRequestDto;
 import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDto;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.CreateBaseResponse;
+import com.frakton.javawarehousedistribution.models.user.Role;
 import com.frakton.javawarehousedistribution.models.user.User;
 import com.frakton.javawarehousedistribution.repository.user.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,63 +19,46 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
     public final UserRepository userRepository;
-    public final PasswordEncoder passwordEncoder;
+
+    public final CreateBaseResponse createBaseResponse;
     ModelMapper modelMapper=new ModelMapper();
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CreateBaseResponse createBaseResponse) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.createBaseResponse = createBaseResponse;
     }
-
-    public ResponseEntity<List<UserResponseDto>> getUser() {
-        return ResponseEntity.ok(userRepository.findAll().
-                stream().
-                map(user -> modelMapper.map(user, UserResponseDto.class)).
-                collect(Collectors.toList()));
-    }
-
-    public ResponseEntity<UserResponseDto> getUserById(UUID id) {
+    public ResponseEntity<BaseResponse> getUserById(UUID id) {
         Optional<User> optionalUser=userRepository.findById(id);
         if(optionalUser.isPresent()){
             User user=optionalUser.get();
-            return ResponseEntity.ok(modelMapper.map(user, UserResponseDto.class));
+            return createBaseResponse.createResponse("User found", HttpStatus.OK,modelMapper.map(user, UserResponseDto.class));
+        }else{
+            return createBaseResponse.createBadResponse("User Not Found",HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.notFound().build();
     }
-
-    public ResponseEntity<UserResponseDto> createUser(UserRequestDto userRequestDto) {
-        User user=modelMapper.map(userRequestDto,User.class);
-        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        userRepository.save(user);
-        return ResponseEntity.ok(modelMapper.map(user, UserResponseDto.class));
-    }
-    public User createUserUser(UserRequestDto userRequestDto) {
+    public User createUserEntity(UserRequestDto userRequestDto) {
         User user=modelMapper.map(userRequestDto,User.class);
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         userRepository.save(user);
         return user;
     }
 
-    public ResponseEntity<UserResponseDto> deleteUser(UUID id) {
+    public ResponseEntity<BaseResponse> deleteUser(UUID id) {
         Optional<User> optionalUser =userRepository.findById(id);
         if(optionalUser.isPresent()){
             User user=optionalUser.get();
             userRepository.delete(user);
-            return ResponseEntity.ok(modelMapper.map(user, UserResponseDto.class));
+            return createBaseResponse.createResponse("User deleted",HttpStatus.OK,modelMapper.map(user, UserResponseDto.class));
+        }else {
+            return createBaseResponse.createBadResponse("User Not Found",HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.notFound().build();
     }
 
+    public User getUser(String username){
+        return userRepository.findByUserName(username).orElse(null);
+    }
 
-
-//    public User changePassword(UserDto userDto){
-//
-//        User user1= userRepository.findById(userDto.getId()).get();
-//        if (userDto.getOldPassword().equals(user1.getPassword())){
-//            user1.setPassword(userDto.getNewPassword());
-//        }
-//        userRepository.save(user1);
-//        return user1;
-//    }
 }

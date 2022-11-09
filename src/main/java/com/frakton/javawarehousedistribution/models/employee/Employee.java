@@ -2,14 +2,16 @@ package com.frakton.javawarehousedistribution.models.employee;
 
 import com.frakton.javawarehousedistribution.models.location.Address;
 import com.frakton.javawarehousedistribution.models.user.User;
+import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
 
 import javax.persistence.*;
 import java.util.UUID;
 @Entity
-public class Employee {
+public class  Employee {
     @OneToOne
     private User user;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String email;

@@ -1,47 +1,30 @@
 package com.frakton.javawarehousedistribution.controllers.user;
 
-import com.frakton.javawarehousedistribution.controllers.dto.user.UserRequestDto;
-import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDto;
-import com.frakton.javawarehousedistribution.models.user.User;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
 import com.frakton.javawarehousedistribution.services.userservice.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
-
-    @Autowired
-    public UserService userService;
-
-    @GetMapping("/api/user")
-    public ResponseEntity<List<UserResponseDto>> getUser(){
-        return userService.getUser();
+    private final UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-    @GetMapping("/api/user/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable UUID id){
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> getUserById(@PathVariable UUID id){
         return userService.getUserById(id);
     }
-    @PostMapping("/api/user")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto){
-        return userService.createUser(userRequestDto);
-    }
 
-    //TODO
-//    @PostMapping("api/user/create_user_client")
-//    public ResponseEntity<UserResponseDto>createClientUser(@RequestBody UserClientRequestDto userClientRequestDto){
-//        return null;
-//    }
-//    @PostMapping("/api/user/create_user_office_worker")
-//    public ResponseEntity<UserResponseDto>createOfficeWorkerUser(@RequestBody UserOfficeWorkerRequestDto userOfficeWorkerRequestDto){
-//
-//    }
-
-    @DeleteMapping("/api/user/{id}")
-    public ResponseEntity<UserResponseDto> deleteUser(@PathVariable UUID id){
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> deleteUser(@PathVariable UUID id){
         return userService.deleteUser(id);
     }
 }

@@ -1,5 +1,7 @@
 package com.frakton.javawarehousedistribution.models.client;
 
+import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,28 @@ public class Order {
     private Date orderDate;
     @OneToMany
     private List<OrderItem> orderItems;
+
+    @ManyToOne
+    private Client client;
+
+    @ManyToOne
+    private Warehouse warehouse;
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public UUID getId() {
         return id;

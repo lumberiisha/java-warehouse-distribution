@@ -9,7 +9,7 @@ public class ProductResponseDto {
     private String name;
     private Double price;
     private String description;
-    private Data expirationDate;
+    private Date expirationDate;
     private Date manufacturingDate;
 
     public UUID getId() {
@@ -20,11 +20,11 @@ public class ProductResponseDto {
         this.id = id;
     }
 
-    public Data getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Data expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 

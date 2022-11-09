@@ -1,10 +1,12 @@
 package com.frakton.javawarehousedistribution.controllers.dto.auth;
 
+import javax.validation.constraints.NotBlank;
+
 public class LoginRequestDto {
+    @NotBlank(message = "username must not be blank")
     private String username;
+    @NotBlank
     private String password;
-
-
     public String getUsername() {
         return username;
     }

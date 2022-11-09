@@ -2,13 +2,17 @@ package com.frakton.javawarehousedistribution.controllers.dto.location;
 
 import com.frakton.javawarehousedistribution.models.location.Region;
 
+import javax.validation.constraints.*;
 
 
 public class AddressRequestDto {
-
+    @NotNull
     private Region region;
+    @NotBlank(message = "street shouldn't be blank")
     private String street;
+    @NotBlank(message = "city shouldn't be blank")
     private String city;
+    @Pattern(regexp = "\\d+",message = "invalid postal code")
     private Integer postalCode;
 
     public Region getRegion() {

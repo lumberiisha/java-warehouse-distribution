@@ -1,20 +1,27 @@
 package com.frakton.javawarehousedistribution.controllers.dto.product;
 
+
+import javax.validation.constraints.NotBlank;
 import javax.xml.crypto.Data;
 import java.util.Date;
+import java.util.UUID;
 
 public class ProductRequestDto {
+    @NotBlank(message = "name shouldn't be blank")
     private String name;
     private Double price;
     private String description;
-    private Data expirationDate;
+    @NotBlank(message = "expiration date shouldn't be blank")
+    private Date expirationDate;
+    @NotBlank(message = "manufacturing date shouldn't be blank")
     private Date manufacturingDate;
 
-    public Data getExpirationDate() {
+
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Data expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 

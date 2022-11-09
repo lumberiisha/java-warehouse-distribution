@@ -2,12 +2,14 @@ package com.frakton.javawarehousedistribution.controllers.dto.user;
 
 import com.frakton.javawarehousedistribution.models.user.Role;
 
+import javax.validation.constraints.NotBlank;
+
 
 public class UserRequestDto {
-
+    @NotBlank(message = "username shouldn't be blank")
     private String userName;
+    @NotBlank(message = "password shouldn't be blank")
     private String password;
-    private Role role;
 
     public String getUserName() {
         return userName;
@@ -23,13 +25,5 @@ public class UserRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

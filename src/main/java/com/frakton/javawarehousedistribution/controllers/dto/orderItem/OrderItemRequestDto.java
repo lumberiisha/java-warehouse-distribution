@@ -1,21 +1,15 @@
 package com.frakton.javawarehousedistribution.controllers.dto.orderItem;
 
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class OrderItemRequestDto {
-    private UUID id;
+    @NotNull(message = "product shouldn't be null")
     private UUID productId;
+    @Min(1)
     private Integer quantity;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public UUID getProductId() {
         return productId;
     }

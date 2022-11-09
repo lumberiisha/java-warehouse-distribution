@@ -1,18 +1,20 @@
 package com.frakton.javawarehousedistribution.controllers.dto.client;
 
-import com.frakton.javawarehousedistribution.controllers.dto.location.AddressRequestDto;
 import com.frakton.javawarehousedistribution.controllers.dto.user.UserRequestDto;
-import com.frakton.javawarehousedistribution.models.location.Address;
-import com.frakton.javawarehousedistribution.models.user.User;
 
-import java.util.UUID;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class ClientRequestDto {
+    @NotNull(message = "User shouldn't be null")
     private UserRequestDto user;
-    private UUID id;
+    @NotBlank(message = "Name shouldn't be blank")
     private String name;
+    @Pattern(regexp = "\\d+")
     private String phoneNumber;
-    private AddressRequestDto address;
+    @Email(message = "invalid email address")
     private String email;
 
     public UserRequestDto getUser() {
@@ -21,14 +23,6 @@ public class ClientRequestDto {
 
     public void setUser(UserRequestDto user) {
         this.user = user;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -45,14 +39,6 @@ public class ClientRequestDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public AddressRequestDto getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressRequestDto address) {
-        this.address = address;
     }
 
     public String getEmail() {

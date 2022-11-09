@@ -1,9 +1,6 @@
 package com.frakton.javawarehousedistribution.models.warehouse;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 @Entity
@@ -16,6 +13,7 @@ public class Product {
     private Date expirationDate;
     private Date manufacturingDate;
     private String description;
+
 
     public UUID getId() {
         return id;

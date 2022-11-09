@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014_update_table_order
+      author: Lum Berisha
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: warehouse_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: warehouse_id
+                    referencedTableName: warehouse
+                    referencedColumnNames: id

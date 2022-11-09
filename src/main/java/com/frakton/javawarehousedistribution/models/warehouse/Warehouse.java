@@ -9,9 +9,10 @@ import java.util.UUID;
 @Entity
 public class Warehouse {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @OneToMany
+    @OneToMany()
     private List<Product> products;
     @OneToMany
     private List<Employee> employees;

@@ -1,49 +1,45 @@
 package com.frakton.javawarehousedistribution.controllers.client;
 
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
 import com.frakton.javawarehousedistribution.controllers.dto.orderItem.OrderItemRequestDto;
-import com.frakton.javawarehousedistribution.controllers.dto.orderItem.OrderItemResponseDto;
 import com.frakton.javawarehousedistribution.services.clientservice.OrderItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/orderItem")
 public class OrderItemController {
-    @Autowired
-    private  OrderItemService orderItemService;
+    private final OrderItemService orderItemService;
+    public OrderItemController(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
     @GetMapping("/{id}")
-    public ResponseEntity<OrderItemResponseDto> getOderItemById(@PathVariable UUID id){
-        System.out.println("test");
-       return orderItemService.getOrderItemById(id);
+    @PreAuthorize("hasAuthority('CLIENT')")//todo rolet
+    public ResponseEntity<BaseResponse> getOderItemById(@PathVariable UUID id){
+        return orderItemService.getOrderItemById(id);
     }
     @GetMapping()
-    public ResponseEntity<List<OrderItemResponseDto>> getOrderItems(){
+    @PreAuthorize("hasAuthority('CLIENT')")//todo rolet//todo nashta sna vyne
+    public ResponseEntity<BaseResponse> getOrderItems(){
         return orderItemService.getOrderItems();
     }
-
     @PostMapping()
-    public ResponseEntity<OrderItemResponseDto> createOrderItem(@RequestBody OrderItemRequestDto orderItemRequestDto){
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<BaseResponse> createOrderItem(@Valid @RequestBody OrderItemRequestDto orderItemRequestDto){
         return orderItemService.createOrderItem(orderItemRequestDto);
     }
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<OrderItemResponseDto> deleteOrderItem(@PathVariable UUID id){
+    @PreAuthorize("hasAuthority('CLIENT')")//todo nashta sna vyne, po nashta edhe na vyn
+    public ResponseEntity<BaseResponse> deleteOrderItem(@PathVariable UUID id){
         return orderItemService.deleteOrderItem(id);
     }
-
     @PutMapping("/{id}/{quantity}")
-    public ResponseEntity<OrderItemResponseDto> updateOrderItem(@PathVariable UUID id, @PathVariable Integer quantity){
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<BaseResponse> updateOrderItem(@PathVariable UUID id, @PathVariable Integer quantity){
         return orderItemService.updateOrderItem(id,quantity);
     }
-
-
-
-
-
-
-
 }

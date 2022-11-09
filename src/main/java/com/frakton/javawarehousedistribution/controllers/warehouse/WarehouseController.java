@@ -1,30 +1,62 @@
 package com.frakton.javawarehousedistribution.controllers.warehouse;
 
-import com.frakton.javawarehousedistribution.models.location.Address;
-import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
+import com.frakton.javawarehousedistribution.controllers.dto.warehouse.ListOfEmployeesRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.warehouse.ListOfProductsRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.warehouse.WarehouseRequestDto;
 import com.frakton.javawarehousedistribution.services.warehouseservice.WarehouseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.UUID;
 @RestController
+@RequestMapping("/api/warehouse")
 public class WarehouseController {
-
-
-    @Autowired
-    public  WarehouseService warehouseService;
-
-
-    @PostMapping("/api/warehouse")
-    public Optional<Warehouse> addWarehouse(@RequestBody Warehouse warehouse){
-       return warehouseService.addWarehouse(warehouse);
+    private final WarehouseService warehouseService;
+    public WarehouseController(WarehouseService warehouseService) {
+        this.warehouseService = warehouseService;
+    }
+    @PostMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> createWarehouse(@RequestBody WarehouseRequestDto warehouseRequestDto){
+       return warehouseService.createWarehouse(warehouseRequestDto);
+    }
+    @PatchMapping("/products/{warehouseId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','OFFICE_WORKER')")//todo ndrro rolin
+    public ResponseEntity<BaseResponse> setListOfProducts(@RequestBody ListOfProductsRequestDto listOfProductsRequestDto,@PathVariable UUID warehouseId){
+        return warehouseService.setListOfProducts(listOfProductsRequestDto,warehouseId);
+    }
+    @PatchMapping("/employees/{warehouseId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> setListOfEmployees(@RequestBody ListOfEmployeesRequestDto listOfEmployeesRequestDto,@PathVariable UUID warehouseId){
+        return warehouseService.setListOfEmployees(listOfEmployeesRequestDto,warehouseId);
+    }
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('CLIENT','OFFICE_WORKER','ADMIN')")
+    public ResponseEntity<BaseResponse> getWarehouseById (@PathVariable UUID id){
+        return warehouseService.getWarehouseById(id);
+    }
+    @GetMapping()
+    @PreAuthorize("hasAnyAuthority('CLIENT','ADMIN')")//todo
+    public ResponseEntity<BaseResponse> getWarehouses(){
+        return warehouseService.getWarehouses();
+    }
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> deleteWarehouse(@PathVariable UUID id){
+        return warehouseService.deleteWarehouse(id);
+    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> updateWarehouse(@PathVariable(name = "id") UUID id,@RequestBody WarehouseRequestDto warehouseRequestDto){
+        return warehouseService.updateWarehouse(id,warehouseRequestDto);
     }
 
-    @GetMapping
-    public Warehouse findWarehouseById(@RequestBody UUID id){
-       // return warehouseService.findWarehouseById(id);
-        return null;
+    @PatchMapping("/{warehouseId}/{addressId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> setAddressToWarehouse(@PathVariable UUID warehouseId,@PathVariable UUID addressId){
+        return warehouseService.setAddressToWarehouse(warehouseId,addressId);
     }
 
 }

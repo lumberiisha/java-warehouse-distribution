@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015_update_table_warehouse_employees
+      author: Lum Berisha
+      changes:
+        - update:
+            tableName: warehouse_employees
+            columns:
+              - column:
+                  name: employees_id
+                  constraints:
+                    unique: true

@@ -8,13 +8,10 @@ public class VehicleResponseDto {
     private UUID id;
     private String plateNumber;
     private Integer personCapacity;
-
     private VehicleType vehicleType;
-
     public UUID getId() {
         return id;
     }
-
     public void setId(UUID id) {
         this.id = id;
     }

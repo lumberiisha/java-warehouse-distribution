@@ -1,8 +1,7 @@
-package com.frakton.javawarehousedistribution.config;
+package com.frakton.javawarehousedistribution.config.securityconfig;
 
-import com.frakton.javawarehousedistribution.config.configservice.MyUserDetails;
-import com.frakton.javawarehousedistribution.config.configservice.MyUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.frakton.javawarehousedistribution.config.securityconfig.configservice.MyUserDetails;
+import com.frakton.javawarehousedistribution.config.securityconfig.configservice.MyUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,16 +10,19 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MyAuthenticationProvider implements AuthenticationProvider {
-    @Autowired
-    private MyUserDetailsService userDetailsService;
+    private final MyUserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public MyAuthenticationProvider(MyUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username=authentication.getName();
         String password=authentication.getCredentials().toString();
+
         MyUserDetails user= userDetailsService.loadUserByUsername(username);
 
         if(passwordEncoder.matches(password,user.getPassword())){
