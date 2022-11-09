@@ -89,7 +89,6 @@ public class OrderService {
         if(optionalWarehouse.isPresent()){
             Warehouse warehouse=optionalWarehouse.get();
             List<OrderItem> orderItemList=orderItemService.getOrderItemsInBatch(orderRequestDto.getOrderItemsId());
-            //TODO think about stock
             Order order= new Order();
             order.setOrderDate(new Date());
             order.setStatus(OrderStatus.CREATED);

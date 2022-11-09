@@ -63,14 +63,14 @@ public class ProductService {
            if(!productRequestDto.getName().equals(product.getName())){
                product.setName(productRequestDto.getName());
            }
-           if(!productRequestDto.getPrice().equals(product.getPrice())&&productRequestDto.getPrice()!=null){
+           if(!productRequestDto.getPrice().equals(product.getPrice())){
                product.setPrice(productRequestDto.getPrice());
            }
-           if(!productRequestDto.getDescription().equals(product.getDescription())&&productRequestDto.getDescription()!=null){
+           if(!productRequestDto.getDescription().equals(product.getDescription())){
                product.setDescription(productRequestDto.getDescription());
            }
            if(!productRequestDto.getExpirationDate().toString().equals(product.getExpirationDate().toString())){
-               product.setExpirationDate((Date) productRequestDto.getExpirationDate());
+               product.setExpirationDate(productRequestDto.getExpirationDate());
            }
            if(!productRequestDto.getManufacturingDate().toString().equals(product.getManufacturingDate().toString())){
                product.setManufacturingDate(productRequestDto.getManufacturingDate());

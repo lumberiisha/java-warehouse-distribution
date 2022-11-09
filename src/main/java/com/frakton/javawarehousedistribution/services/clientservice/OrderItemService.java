@@ -36,18 +36,10 @@ public class OrderItemService {
             Optional<OrderItem> optionalOrderItem=orderItemRepository.findById(id);
             if (optionalOrderItem.isPresent()){
                 OrderItem orderItem=optionalOrderItem.get();
-                return createBaseResponse.createResponse("OrderItem found",HttpStatus.OK, modelMapper.map(orderItem, OrderItemResponseDto.class));//todo a pe kthen ndrregull
+                return createBaseResponse.createResponse("OrderItem found",HttpStatus.OK, modelMapper.map(orderItem, OrderItemResponseDto.class));
             }else {
                 return createBaseResponse.createBadResponse("OrderItem Not found",HttpStatus.NOT_FOUND);
             }
-    }
-
-    public ResponseEntity<BaseResponse> getOrderItems() {
-        List<OrderItem> orderItemList=orderItemRepository.findAll();
-        return createBaseResponse.createResponse("OrderItems found",HttpStatus.OK,(orderItemList.
-                stream().
-                map(orderItem -> modelMapper.map(orderItem, OrderItemResponseDto.class)).
-                collect(Collectors.toList())));
     }
 
     public ResponseEntity<BaseResponse> createOrderItem(OrderItemRequestDto orderItemRequestDto) {

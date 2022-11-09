@@ -16,7 +16,6 @@ public class AddressController {
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
-
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('CLIENT')")
     public ResponseEntity<BaseResponse> getAddressById(@PathVariable UUID id){

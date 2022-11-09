@@ -4,7 +4,6 @@ import com.frakton.javawarehousedistribution.controllers.dto.user.UserRequestDto
 import com.frakton.javawarehousedistribution.controllers.dto.user.UserResponseDto;
 import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
 import com.frakton.javawarehousedistribution.controllers.dto.utils.CreateBaseResponse;
-import com.frakton.javawarehousedistribution.models.user.Role;
 import com.frakton.javawarehousedistribution.models.user.User;
 import com.frakton.javawarehousedistribution.repository.user.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -14,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
 @Service
 public class UserService {
 

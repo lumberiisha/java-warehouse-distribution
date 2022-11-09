@@ -18,14 +18,9 @@ public class OrderItemController {
         this.orderItemService = orderItemService;
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('CLIENT')")//todo rolet
+    @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<BaseResponse> getOderItemById(@PathVariable UUID id){
         return orderItemService.getOrderItemById(id);
-    }
-    @GetMapping()
-    @PreAuthorize("hasAuthority('CLIENT')")//todo rolet//todo nashta sna vyne
-    public ResponseEntity<BaseResponse> getOrderItems(){
-        return orderItemService.getOrderItems();
     }
     @PostMapping()
     @PreAuthorize("hasAuthority('CLIENT')")
@@ -33,7 +28,7 @@ public class OrderItemController {
         return orderItemService.createOrderItem(orderItemRequestDto);
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('CLIENT')")//todo nashta sna vyne, po nashta edhe na vyn
+    @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<BaseResponse> deleteOrderItem(@PathVariable UUID id){
         return orderItemService.deleteOrderItem(id);
     }

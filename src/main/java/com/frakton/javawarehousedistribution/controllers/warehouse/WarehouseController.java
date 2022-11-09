@@ -23,7 +23,7 @@ public class WarehouseController {
        return warehouseService.createWarehouse(warehouseRequestDto);
     }
     @PatchMapping("/products/{warehouseId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','OFFICE_WORKER')")//todo ndrro rolin
+    @PreAuthorize("hasAnyAuthority('ADMIN','OFFICE_WORKER')")
     public ResponseEntity<BaseResponse> setListOfProducts(@RequestBody ListOfProductsRequestDto listOfProductsRequestDto,@PathVariable UUID warehouseId){
         return warehouseService.setListOfProducts(listOfProductsRequestDto,warehouseId);
     }
@@ -38,7 +38,7 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('CLIENT','ADMIN')")//todo
+    @PreAuthorize("hasAnyAuthority('CLIENT','ADMIN')")
     public ResponseEntity<BaseResponse> getWarehouses(){
         return warehouseService.getWarehouses();
     }
@@ -49,7 +49,7 @@ public class WarehouseController {
     }
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<BaseResponse> updateWarehouse(@PathVariable(name = "id") UUID id,@RequestBody WarehouseRequestDto warehouseRequestDto){
+    public ResponseEntity<BaseResponse> updateWarehouse(@PathVariable UUID id,@RequestBody WarehouseRequestDto warehouseRequestDto){
         return warehouseService.updateWarehouse(id,warehouseRequestDto);
     }
 

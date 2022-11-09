@@ -55,7 +55,7 @@ public class WarehouseService {
         if(warehouseOptional.isPresent()){
             Warehouse warehouse=warehouseOptional.get();
             warehouseRepository.delete(warehouse);
-            WarehouseResponseDto warehouseResponseDto=modelMapper.map(warehouse,WarehouseResponseDto.class);//todo testo
+            WarehouseResponseDto warehouseResponseDto=modelMapper.map(warehouse,WarehouseResponseDto.class);
             return createBaseResponse.createResponse("warehouse deleted",HttpStatus.OK,warehouseResponseDto);
         }else {
             return createBaseResponse.createBadResponse("warehouse not found",HttpStatus.NOT_FOUND);
