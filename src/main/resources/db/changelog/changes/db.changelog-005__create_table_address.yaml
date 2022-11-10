@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006_create_table_address
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: street
+                  type: varchar(255)
+              - column:
+                  name: postal_code
+                  type: Integer
+              - column:
+                  name: region
+                  type: Integer

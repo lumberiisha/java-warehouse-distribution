@@ -1,0 +1,5250 @@
+#openapi: 3.0.0
+#
+#info:
+#  version: 0.0.1
+#  title: Warehouse api
+#  description: Warehouse distribution api
+openapi: 3.0.3
+info:
+  title: Warehouse api
+  description: Warehouse distribution api
+  contact:
+    name: Lum Berisha
+    email: lum.berisha@frakton.com
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    # description: Inferred Url
+tags:
+  - name: Address
+  - name: Auth
+  - name: Client
+  - name: Employee
+  - name: Order
+  - name: Order Item
+  - name: Product
+  - name: User
+  - name: Vehicle
+  - name: Warehouse
+paths:
+  /api/address:
+    post:
+      tags:
+        - Address
+      summary: createAddress
+      operationId: createAddressUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AddressResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/address/{id}:
+    get:
+      tags:
+        - Address
+      summary: getAddressById
+      operationId: getAddressByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AddressResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Address
+      summary: updateAddress
+      operationId: updateAddressUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AddressResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Address
+      summary: deleteAddress
+      operationId: deleteAddressUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AddressResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: loginUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/TokenDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/auth/refreshToken:
+    get:
+      tags:
+        - Auth
+      summary: refreshToken
+      operationId: refreshTokenUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/TokenDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: createClient
+      operationId: createClientUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ClientResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+  /api/client/{addressId}:
+    patch:
+      tags:
+        - Client
+      summary: setAddress
+      operationId: setAddressUsingPATCH
+      parameters:
+        - name: addressId
+          in: path
+          description: addressId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ClientResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/employee:
+    get:
+      tags:
+        - Employee
+      summary: getEmployees
+      operationId: getEmployeesUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Employee
+      summary: createEmployee
+      operationId: createEmployeeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/employee/address/{employeeId}/{addressId}:
+    patch:
+      tags:
+        - Employee
+      summary: setAddress
+      operationId: setAddressUsingPOST
+      parameters:
+        - name: employeeId
+          in: path
+          description: employeeId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+        - name: addressId
+          in: path
+          description: addressId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/employee/vehicle/{employeeId}/{vehicleId}:
+    patch:
+      tags:
+        - Employee
+      summary: setVehicle
+      operationId: setVehicleUsingPOST
+      parameters:
+        - name: employeeId
+          in: path
+          description: employeeId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+        - name: vehicleId
+          in: path
+          description: vehicleId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/employee/warehouse/{id}:
+    get:
+      tags:
+        - Employee
+      summary: getEmployeesByWarehouse
+      operationId: getEmployeesByWarehouseUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/employee/{id}:
+    get:
+      tags:
+        - Employee
+      summary: getEmployeeBydId
+      operationId: getEmployeeBydIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    delete:
+      tags:
+        - Employee
+      summary: deleteEmployee
+      operationId: deleteEmployeeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/EmployeeResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/order:
+    get:
+      tags:
+        - Order
+      summary: getOrders
+      operationId: getOrdersUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/order/address/{orderId}:
+    get:
+      tags:
+        - Order
+      summary: getClientAddressFromOrder
+      operationId: getClientAddressFromOrderUsingGET
+      parameters:
+        - name: orderId
+          in: path
+          description: orderId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AddressResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/order/client:
+    get:
+      tags:
+        - Order
+      summary: getClientOrders
+      operationId: getClientOrdersUsingGET
+      parameters:
+        - name: authenticated
+          in: query
+          required: false
+          style: form
+          schema:
+            type: boolean
+        # - name: authorities[0].authority
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: string
+        # - name: credentials
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        # - name: details
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        # - name: principal
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/order/warehouse/{warehouseId}:
+    get:
+      tags:
+        - Order
+      summary: getOrdersByRole
+      operationId: getOrdersByRoleUsingGET
+      parameters:
+        - name: authenticated
+          in: query
+          required: false
+          style: form
+          schema:
+            type: boolean
+        # - name: authorities[0].authority
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: string
+        # - name: credentials
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        # - name: details
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        # - name: principal
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        - name: warehouseId
+          in: path
+          description: warehouseId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/order/{id}:
+    get:
+      tags:
+        - Order
+      summary: getOrderById
+      operationId: getOrderByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    patch:
+      tags:
+        - Order
+      summary: changeOrderStatus
+      operationId: changeOrderStatusUsingPATCH
+      parameters:
+        - name: authenticated
+          in: query
+          required: false
+          style: form
+          schema:
+            type: boolean
+        # - name: authorities[0].authority
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: string
+        # - name: credentials
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        # - name: details
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+        - name: id
+          in: path
+          description: orderId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+        # - name: principal
+        #   in: query
+        #   required: false
+        #   style: form
+        #   schema:
+        #     type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/order/{warehouseId}:
+    post:
+      tags:
+        - Order
+      summary: createOrder
+      operationId: createOrderUsingPOST
+      parameters:
+
+        - name: warehouseId
+          in: path
+          description: warehouseId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/orderItem:
+
+    post:
+      tags:
+        - Order Item
+      summary: createOrderItem
+      operationId: createOrderItemUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderItemRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderItemResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/orderItem/{id}:
+    get:
+      tags:
+        - Order Item
+      summary: getOderItemById
+      operationId: getOderItemByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderItemResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Order Item
+      summary: deleteOrderItem
+      operationId: deleteOrderItemUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderItemResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/orderItem/{id}/{quantity}:
+    put:
+      tags:
+        - Order Item
+      summary: updateOrderItem
+      operationId: updateOrderItemUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+        - name: quantity
+          in: path
+          description: quantity
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/OrderItemResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/product:
+    get:
+      tags:
+        - Product
+      summary: getProducts
+      operationId: getProductsUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Product
+      summary: createProduct
+      operationId: createProductUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/product/warehouse/{warehouseId}:
+    get:
+      tags:
+        - Product
+      summary: getProductsByWarehouse
+      operationId: getProductsByWarehouseUsingGET
+      parameters:
+        - name: warehouseId
+          in: path
+          description: warehouseId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/product/{id}:
+    get:
+      tags:
+        - Product
+      summary: getProductById
+      operationId: getProductByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Product
+      summary: update
+      operationId: updateUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Product
+      summary: deleteProduct
+      operationId: deleteProductUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProductResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/user:
+
+    post:
+      tags:
+        - User
+      summary: createUser
+      operationId: createUserUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/UserResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/user/{id}:
+    get:
+      tags:
+        - User
+      summary: getUserById
+      operationId: getUserByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/UserResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+  /api/vehicle:
+    get:
+      tags:
+        - Vehicle
+      summary: getVehicles
+      operationId: getVehiclesUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/VehicleResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Vehicle
+      summary: createVehicle
+      operationId: createVehicleUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/VehicleResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/vehicle/{id}:
+    get:
+      tags:
+        - Vehicle
+      summary: getVehicleById
+      operationId: getVehicleByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/VehicleResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    delete:
+      tags:
+        - Vehicle
+      summary: deleteVehicle
+      operationId: deleteVehicleUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/VehicleResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/warehouse:
+    get:
+      tags:
+        - Warehouse
+      summary: getWarehouses
+      operationId: getWarehousesUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Warehouse
+      summary: createWarehouse
+      operationId: createWarehouseUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarehouseRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/warehouse/employees/{warehouseId}:
+    post:
+      tags:
+        - Warehouse
+      summary: setListOfEmployees
+      operationId: setListOfEmployeesUsingPOST
+      parameters:
+        - name: warehouseId
+          in: path
+          description: warehouseId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOfEmployeesRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/warehouse/products/{warehouseId}:
+    post:
+      tags:
+        - Warehouse
+      summary: setListOfProducts
+      operationId: setListOfProductsUsingPOST
+      parameters:
+        - name: warehouseId
+          in: path
+          description: warehouseId
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOfProductsRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/warehouse/{id}:
+    get:
+      tags:
+        - Warehouse
+      summary: getWarehouseById
+      operationId: getWarehouseByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Warehouse
+      summary: updateWarehouse
+      operationId: updateWarehouseUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WarehouseRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Warehouse
+      summary: deleteWarehouse
+      operationId: deleteWarehouseUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                title: BaseResponse
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/WarehouseResponseDto'
+                  code:
+                    type: string
+                    enum:
+                      - ACCEPTED
+                      - ALREADY_REPORTED
+                      - BAD_GATEWAY
+                      - BAD_REQUEST
+                      - BANDWIDTH_LIMIT_EXCEEDED
+                      - CHECKPOINT
+                      - CONFLICT
+                      - CONTINUE
+                      - CREATED
+                      - DESTINATION_LOCKED
+                      - EXPECTATION_FAILED
+                      - FAILED_DEPENDENCY
+                      - FORBIDDEN
+                      - FOUND
+                      - GATEWAY_TIMEOUT
+                      - GONE
+                      - HTTP_VERSION_NOT_SUPPORTED
+                      - IM_USED
+                      - INSUFFICIENT_SPACE_ON_RESOURCE
+                      - INSUFFICIENT_STORAGE
+                      - INTERNAL_SERVER_ERROR
+                      - I_AM_A_TEAPOT
+                      - LENGTH_REQUIRED
+                      - LOCKED
+                      - LOOP_DETECTED
+                      - METHOD_FAILURE
+                      - METHOD_NOT_ALLOWED
+                      - MOVED_PERMANENTLY
+                      - MOVED_TEMPORARILY
+                      - MULTIPLE_CHOICES
+                      - MULTI_STATUS
+                      - NETWORK_AUTHENTICATION_REQUIRED
+                      - NON_AUTHORITATIVE_INFORMATION
+                      - NOT_ACCEPTABLE
+                      - NOT_EXTENDED
+                      - NOT_FOUND
+                      - NOT_IMPLEMENTED
+                      - NOT_MODIFIED
+                      - NO_CONTENT
+                      - OK
+                      - PARTIAL_CONTENT
+                      - PAYLOAD_TOO_LARGE
+                      - PAYMENT_REQUIRED
+                      - PERMANENT_REDIRECT
+                      - PRECONDITION_FAILED
+                      - PRECONDITION_REQUIRED
+                      - PROCESSING
+                      - PROXY_AUTHENTICATION_REQUIRED
+                      - REQUESTED_RANGE_NOT_SATISFIABLE
+                      - REQUEST_ENTITY_TOO_LARGE
+                      - REQUEST_HEADER_FIELDS_TOO_LARGE
+                      - REQUEST_TIMEOUT
+                      - REQUEST_URI_TOO_LONG
+                      - RESET_CONTENT
+                      - SEE_OTHER
+                      - SERVICE_UNAVAILABLE
+                      - SWITCHING_PROTOCOLS
+                      - TEMPORARY_REDIRECT
+                      - TOO_EARLY
+                      - TOO_MANY_REQUESTS
+                      - UNAUTHORIZED
+                      - UNAVAILABLE_FOR_LEGAL_REASONS
+                      - UNPROCESSABLE_ENTITY
+                      - UNSUPPORTED_MEDIA_TYPE
+                      - UPGRADE_REQUIRED
+                      - URI_TOO_LONG
+                      - USE_PROXY
+                      - VARIANT_ALSO_NEGOTIATES
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    AddressRequestDto:
+      title: AddressRequestDto
+      required:
+        - city
+        - region
+        - street
+      type: object
+      properties:
+        city:
+          type: string
+        postalCode:
+          type: integer
+          format: int32
+        region:
+          type: string
+          enum:
+            - GJAKOVE
+            - PEJE
+            - PRISHTINE
+            - PRIZREN
+        street:
+          type: string
+    BaseResponse:
+      title: BaseResponse
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+            - ACCEPTED
+            - ALREADY_REPORTED
+            - BAD_GATEWAY
+            - BAD_REQUEST
+            - BANDWIDTH_LIMIT_EXCEEDED
+            - CHECKPOINT
+            - CONFLICT
+            - CONTINUE
+            - CREATED
+            - DESTINATION_LOCKED
+            - EXPECTATION_FAILED
+            - FAILED_DEPENDENCY
+            - FORBIDDEN
+            - FOUND
+            - GATEWAY_TIMEOUT
+            - GONE
+            - HTTP_VERSION_NOT_SUPPORTED
+            - IM_USED
+            - INSUFFICIENT_SPACE_ON_RESOURCE
+            - INSUFFICIENT_STORAGE
+            - INTERNAL_SERVER_ERROR
+            - I_AM_A_TEAPOT
+            - LENGTH_REQUIRED
+            - LOCKED
+            - LOOP_DETECTED
+            - METHOD_FAILURE
+            - METHOD_NOT_ALLOWED
+            - MOVED_PERMANENTLY
+            - MOVED_TEMPORARILY
+            - MULTIPLE_CHOICES
+            - MULTI_STATUS
+            - NETWORK_AUTHENTICATION_REQUIRED
+            - NON_AUTHORITATIVE_INFORMATION
+            - NOT_ACCEPTABLE
+            - NOT_EXTENDED
+            - NOT_FOUND
+            - NOT_IMPLEMENTED
+            - NOT_MODIFIED
+            - NO_CONTENT
+            - OK
+            - PARTIAL_CONTENT
+            - PAYLOAD_TOO_LARGE
+            - PAYMENT_REQUIRED
+            - PERMANENT_REDIRECT
+            - PRECONDITION_FAILED
+            - PRECONDITION_REQUIRED
+            - PROCESSING
+            - PROXY_AUTHENTICATION_REQUIRED
+            - REQUESTED_RANGE_NOT_SATISFIABLE
+            - REQUEST_ENTITY_TOO_LARGE
+            - REQUEST_HEADER_FIELDS_TOO_LARGE
+            - REQUEST_TIMEOUT
+            - REQUEST_URI_TOO_LONG
+            - RESET_CONTENT
+            - SEE_OTHER
+            - SERVICE_UNAVAILABLE
+            - SWITCHING_PROTOCOLS
+            - TEMPORARY_REDIRECT
+            - TOO_EARLY
+            - TOO_MANY_REQUESTS
+            - UNAUTHORIZED
+            - UNAVAILABLE_FOR_LEGAL_REASONS
+            - UNPROCESSABLE_ENTITY
+            - UNSUPPORTED_MEDIA_TYPE
+            - UPGRADE_REQUIRED
+            - URI_TOO_LONG
+            - USE_PROXY
+            - VARIANT_ALSO_NEGOTIATES
+        data:
+          type: object
+
+        message:
+          type: string
+    ClientRequestDto:
+      title: ClientRequestDto
+      required:
+        - name
+        - user
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        phoneNumber:
+          pattern: \d+
+          type: string
+        user:
+          $ref: '#/components/schemas/UserRequestDto'
+    EmployeeRequestDto:
+      title: EmployeeRequestDto
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        userRequestDto:
+          $ref: '#/components/schemas/UserRequestDto'
+    TokenDto:
+      title: TokenDto
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresht_token:
+          type: string
+    ListOfEmployeesRequestDto:
+      title: ListOfEmployeesRequestDto
+      type: object
+      properties:
+        listOfEmploy:
+          type: array
+          items:
+            type: string
+            format: uuid
+    ListOfProductsRequestDto:
+      title: ListOfProductsRequestDto
+      type: object
+      properties:
+        listOfProducts:
+          type: array
+          items:
+            type: string
+            format: uuid
+    LoginRequestDto:
+      title: LoginRequestDto
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        password:
+          type: string
+        username:
+          type: string
+
+    OrderItemRequestDto:
+      title: OrderItemRequestDto
+      required:
+        - productId
+      type: object
+      properties:
+        productId:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          format: int32
+    OrderRequestDto:
+      title: OrderRequestDto
+      required:
+        - orderItemsId
+      type: object
+      properties:
+        orderItemsId:
+          type: array
+          items:
+            type: string
+            format: uuid
+    OrderStatusRequestDto:
+      title: OrderStatusRequestDto
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - CREATED
+            - DELIVERED
+            - IN_PROGRESS
+            - WAITING_FOR_DELIVERY
+    ProductRequestDto:
+      title: ProductRequestDto
+      required:
+        - name
+      type: object
+      properties:
+        description:
+          type: string
+        expirationDate:
+          type: string
+          format: date
+        manufacturingDate:
+          type: string
+          format: date
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+    UserRequestDto:
+      title: UserRequestDto
+      required:
+        - password
+        - userName
+      type: object
+      properties:
+        password:
+          type: string
+        userName:
+          type: string
+    VehicleRequestDto:
+      title: VehicleRequestDto
+      required:
+        - plateNumber
+        - vehicleType
+      type: object
+      properties:
+        personCapacity:
+          type: integer
+          format: int32
+        plateNumber:
+          type: string
+        vehicleType:
+          type: string
+          enum:
+            - PICKUP
+            - TRACK
+            - VAN
+    WarehouseRequestDto:
+      title: WarehouseRequestDto
+      type: object
+      properties:
+        name:
+          type: string
+    ClientResponseDto:
+      title: ClientResponseDto
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserResponseDto'
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressResponseDto'
+        email:
+          type: string
+    EmployeeResponseDto:
+      title: EmployeeResponseDto
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserResponseDto'
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressResponseDto'
+        vehicle:
+          $ref: '#/components/schemas/VehicleResponseDto'
+    VehicleResponseDto:
+      title: VehicleResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plateNumber:
+          type: string
+        personCapacity:
+          type: integer
+          format: int32
+        vehicleType:
+          type: string
+          enum:
+            - PICKUP
+            - VAN
+            - TRACK
+    AddressResponseDto:
+      title: AddressResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        region:
+          type: string
+          enum:
+            - GJAKOVE
+            - PEJE
+            - PRISHTINE
+            - PRIZREN
+        street:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: integer
+          format: int32
+    OrderResponseDto:
+      title: OrderResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - CREATED
+            - DELIVERED
+            - IN_PROGRESS
+            - WAITING_FOR_DELIVERY
+        orderDate:
+          type: string
+          format: date
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemResponseDto'
+    OrderItemResponseDto:
+      title: OrderItemResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        product:
+          $ref: '#/components/schemas/ProductResponseDto'
+        quantity:
+          type: integer
+          format: int32
+    ProductResponseDto:
+      title: ProductResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        expirationDate:
+          type: string
+          format: date
+        manufacturingDate:
+          type: string
+          format: date
+    UserResponseDto:
+      title: UserResponseDto
+      properties:
+        id:
+          type: string
+          format: uuid
+        userName:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - CLIENT
+            - OFFICE_WORKER
+            - DELIVERY
+            - WAREHOUSE_WORKER
+    WarehouseResponseDto:
+      title: WarehouseResponseDto
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          format: string
+        address:
+          $ref: '#/components/schemas/AddressResponseDto'
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      name: Authorization
+      in: header

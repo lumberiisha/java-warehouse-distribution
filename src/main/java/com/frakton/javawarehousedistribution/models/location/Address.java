@@ -1,9 +1,17 @@
 package com.frakton.javawarehousedistribution.models.location;
+
+import javax.persistence.*;
+import java.util.UUID;
+
+@Entity
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private Region region;
     private String street;
     private String city;
-    private int postalCode;
+    private Integer postalCode;
 
     public Region getRegion() {
         return region;
@@ -29,11 +37,19 @@ public class Address {
         this.city = city;
     }
 
-    public int getPostalCode() {
+    public Integer getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(Integer postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

@@ -1,0 +1,26 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 005_create_table_user
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: role
+                  type: Integer

@@ -1,13 +1,43 @@
 package com.frakton.javawarehousedistribution.models.client;
 
+import com.frakton.javawarehousedistribution.models.warehouse.Warehouse;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+@Entity
+@Table(name = "orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private OrderStatus status;
     private Date orderDate;
+    @OneToMany
     private List<OrderItem> orderItems;
+
+    @ManyToOne
+    private Client client;
+
+    @ManyToOne
+    private Warehouse warehouse;
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public UUID getId() {
         return id;
@@ -41,11 +71,4 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
 }

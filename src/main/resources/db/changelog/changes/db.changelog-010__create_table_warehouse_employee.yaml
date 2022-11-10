@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010_create_table_warehouse_employee
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: warehouse_employees
+            columns:
+              - column:
+                  name: warehouse_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: warehouse_id
+                    referencedTableName: warehouse
+                    referencedColumnNames: id
+              - column:
+                 name: employees_id
+                 type: UUID
+                 constraints:
+                   foreignKeyName: employees_id
+                   referencedTableName: employee
+                   referencedColumnNames: id

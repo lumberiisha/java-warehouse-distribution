@@ -1,0 +1,25 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 002_create_table_order_item
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: order_item
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: Integer
+              - column:
+                  name: product_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: product_id
+                    referencedTableName: product
+                    referencedColumnNames: id

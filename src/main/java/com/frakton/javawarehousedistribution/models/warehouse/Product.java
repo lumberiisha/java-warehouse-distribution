@@ -1,17 +1,19 @@
 package com.frakton.javawarehousedistribution.models.warehouse;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import javax.persistence.*;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
     private String name;
     private Double price;
     private Date expirationDate;
     private Date manufacturingDate;
     private String description;
+
 
     public UUID getId() {
         return id;

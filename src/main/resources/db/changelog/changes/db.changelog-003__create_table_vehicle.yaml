@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_create_table_vehicle
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: vehicle
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: person_capacity
+                  type: Integer
+              - column:
+                  name: plate_number
+                  type: varchar(255)
+              - column:
+                  name: vehicle_type
+                  type: Integer

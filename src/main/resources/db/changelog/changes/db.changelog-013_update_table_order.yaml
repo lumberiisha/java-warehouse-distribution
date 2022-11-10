@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 013_update_table_order
+      author: Lum Berisha
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: client_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: client_id
+                    referencedTableName: client
+                    referencedColumnNames: id

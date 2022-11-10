@@ -2,10 +2,14 @@ package com.frakton.javawarehousedistribution.models.client;
 
 import com.frakton.javawarehousedistribution.models.warehouse.Product;
 
+import javax.persistence.*;
 import java.util.UUID;
-
+@Entity
 public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @OneToOne
     private Product product;
     private Integer quantity;
 

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012_create_table_orders_order_item
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: orders_order_items
+            columns:
+              - column:
+                  name: order_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: order_id
+                    referencedTableName: orders
+                    referencedColumnNames: id
+              - column:
+                  name: order_items_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: order_items_id
+                    referencedTableName: order_item
+                    referencedColumnNames: id

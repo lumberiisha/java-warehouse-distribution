@@ -1,0 +1,30 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 001_create_table_product
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: Double
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: manufacturing_date
+                  type: timestamp
+              - column:
+                  name: expiration_date
+                  type: timestamp

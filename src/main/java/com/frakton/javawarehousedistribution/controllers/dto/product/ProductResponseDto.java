@@ -1,12 +1,16 @@
 package com.frakton.javawarehousedistribution.controllers.dto.product;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.UUID;
 
-public class ProductDto {
+public class ProductResponseDto {
     private UUID id;
     private String name;
     private Double price;
     private String description;
+    private Date expirationDate;
+    private Date manufacturingDate;
 
     public UUID getId() {
         return id;
@@ -14,6 +18,22 @@ public class ProductDto {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public Date getManufacturingDate() {
+        return manufacturingDate;
+    }
+
+    public void setManufacturingDate(Date manufacturingDate) {
+        this.manufacturingDate = manufacturingDate;
     }
 
     public String getName() {
@@ -40,5 +60,3 @@ public class ProductDto {
         this.description = description;
     }
 }
-
-

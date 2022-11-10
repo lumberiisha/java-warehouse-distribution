@@ -1,35 +1,55 @@
 package com.frakton.javawarehousedistribution.controllers.warehouse;
 
-import com.frakton.javawarehousedistribution.controllers.dto.product.ProductDto;
-import com.frakton.javawarehousedistribution.models.warehouse.Product;
+import com.frakton.javawarehousedistribution.controllers.dto.product.ProductRequestDto;
+import com.frakton.javawarehousedistribution.controllers.dto.utils.BaseResponse;
+import com.frakton.javawarehousedistribution.services.authservice.AuthService;
 import com.frakton.javawarehousedistribution.services.warehouseservice.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/product")
 public class ProductController {
-    @Autowired
-    public ProductService productService;
-
-    @PostMapping("/api/product")
-    public void addProduct(@RequestBody Product product){
-        productService.addProduct(product);
+    private final ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+    @GetMapping("/warehouse/{warehouseId}")
+    @PreAuthorize("hasAnyAuthority('CLIENT','OFFICE_WORKER')")
+    public ResponseEntity<BaseResponse> getProductsByWarehouse(@PathVariable UUID warehouseId){
+        return productService.getProductsByWarehouse(warehouseId);
+    }
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('CLIENT','OFFICE_WORKER')")
+    public ResponseEntity<BaseResponse> getProductById(@PathVariable UUID id){
+        return productService.getProductById(id);
     }
 
-    @GetMapping("/api/product")
-    public List<Product> getProduct(){
-       return productService.getProducts();
+    @GetMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<BaseResponse> getProducts(){
+        return productService.getProducts();
     }
-    @DeleteMapping("/api/product")
-    public Product delete(@RequestBody UUID id){
-       return productService.delete(id);
+    @PostMapping()
+    @PreAuthorize("hasAnyAuthority('OFFICE_WORKER','ADMIN')")
+    public ResponseEntity<BaseResponse> createProduct(@RequestBody ProductRequestDto productRequestDto) {
+        return productService.createProduct(productRequestDto);
     }
-    @PatchMapping("/api/product")
-    public Product update(@RequestBody ProductDto productDto){
-        return productService.update(productDto);
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('OFFICE_WORKER','ADMIN')")
+    public ResponseEntity<BaseResponse> deleteProduct(@PathVariable UUID id){
+       return productService.deleteProduct(id);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('OFFICE_WORKER','ADMIN')")
+    public ResponseEntity<BaseResponse> update(@PathVariable UUID id, @RequestBody ProductRequestDto productRequestDto){
+        return productService.updateProduct(id,productRequestDto);
     }
 
 }

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011_create_table_order
+      author: Lum Berisha
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: status
+                  type: Integer
+              - column:
+                  name: order_date
+                  type: timestamp
