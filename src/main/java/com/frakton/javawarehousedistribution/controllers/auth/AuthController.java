@@ -24,7 +24,7 @@ public class AuthController {
     }
     @PostMapping("/login")
     public ResponseEntity<BaseResponse> login(@RequestBody LoginRequestDto requestDto) {
-        return authService.login(requestDto);
+      return authService.login(requestDto);
     }
     @GetMapping("/refreshToken")
     public ResponseEntity<BaseResponse> refreshToken(HttpServletRequest request){

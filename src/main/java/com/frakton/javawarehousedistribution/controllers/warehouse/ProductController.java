@@ -32,6 +32,7 @@ public class ProductController {
     @GetMapping()
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<BaseResponse> getProducts(){
+        System.out.println("test");
         return productService.getProducts();
     }
     @PostMapping()
