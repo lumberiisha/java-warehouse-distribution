@@ -1,6 +1,6 @@
 # Warehouse distribution 
 
-#### This is a intern project made by Lum Berisha
+#### This is a project made by Lum Berisha
 
 
 ### Docker
